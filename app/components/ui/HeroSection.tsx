@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Phone, ArrowRight, CheckCircle } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const HERO_SCROLL_LENGTH = 700;
 
@@ -16,52 +17,43 @@ export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const truckRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    const truck = truckRef.current;
-    if (!section || !truck) return;
+  useGSAP(
+    () => {
+      const section = sectionRef.current;
+      const truck = truckRef.current;
+      if (!section || !truck) return;
 
-    const mm = gsap.matchMedia();
-    mm.add("(max-width: 768px)", () => {
-      gsap.set(truck, { xPercent: 75 });
-      const tween = gsap.to(truck, { xPercent: -75, ease: "none", duration: 1 });
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top top",
-        end: `+=${HERO_SCROLL_LENGTH}`,
-        pin: true,
-        scrub: 1,
-        anticipatePin: 1,
-        animation: tween,
+      const mm = gsap.matchMedia();
+      mm.add("(max-width: 768px)", () => {
+        gsap.set(truck, { xPercent: 75 });
+        const tween = gsap.to(truck, { xPercent: -75, ease: "none", duration: 1 });
+        ScrollTrigger.create({
+          trigger: section,
+          start: "top top",
+          end: `+=${HERO_SCROLL_LENGTH}`,
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+          animation: tween,
+        });
       });
-    });
-    mm.add("(min-width: 769px)", () => {
-      gsap.set(truck, { xPercent: 120 });
-      const tween = gsap.to(truck, { xPercent: -100, ease: "none", duration: 1 });
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top top",
-        end: `+=${HERO_SCROLL_LENGTH}`,
-        pin: true,
-        scrub: 1,
-        anticipatePin: 1,
-        animation: tween,
+      mm.add("(min-width: 769px)", () => {
+        gsap.set(truck, { xPercent: 120 });
+        const tween = gsap.to(truck, { xPercent: -100, ease: "none", duration: 1 });
+        ScrollTrigger.create({
+          trigger: section,
+          start: "top top",
+          end: `+=${HERO_SCROLL_LENGTH}`,
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+          animation: tween,
+        });
       });
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((st) => {
-        if (st.trigger === section) st.kill(true);
-      });
-      setTimeout(() => {
-        try {
-          mm.revert();
-        } catch {
-          /* ignore cleanup errors during navigation */
-        }
-      }, 0);
-    };
-  }, []);
+      return () => mm.revert();
+    },
+    { scope: containerRef, revertOnUpdate: true }
+  );
 
   /* 3D tilt on CTA button hover */
   const handleTilt = (e: React.MouseEvent<HTMLDivElement>) => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
@@ -8,8 +8,9 @@ import gsap from "gsap";
 import Reveal from "./Reveal";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, useGSAP);
 
 interface Service {
   icon: React.ReactNode;
@@ -29,11 +30,11 @@ export default function StackedServices({ services }: { services: Service[] }) {
   const n = services.length;
   const progressToIndex = (p: number) => Math.min(n - 1, Math.max(0, Math.floor(p * n)));
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (n === 0 || !section) return;
+  useGSAP(
+    () => {
+      const section = sectionRef.current;
+      if (n === 0 || !section) return;
 
-    const ctx = gsap.context(() => {
       const tween = gsap.to(progressRef.current, { value: 1, ease: "none", duration: 1 });
       ScrollTrigger.create({
         trigger: section,
@@ -47,21 +48,9 @@ export default function StackedServices({ services }: { services: Service[] }) {
           setActiveIndex(progressToIndex(self.progress));
         },
       });
-    }, section);
-
-    return () => {
-      ScrollTrigger.getAll().forEach((st) => {
-        if (st.trigger === section) st.kill(true);
-      });
-      setTimeout(() => {
-        try {
-          ctx.revert();
-        } catch {
-          /* ignore cleanup errors during navigation */
-        }
-      }, 0);
-    };
-  }, [n]);
+    },
+    { scope: sectionRef, dependencies: [n], revertOnUpdate: true }
+  );
 
   const handleCardClick = (i: number) => {
     const st = ScrollTrigger.getAll().find((s) => s.trigger === sectionRef.current);
