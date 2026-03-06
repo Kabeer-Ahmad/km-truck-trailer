@@ -19,6 +19,12 @@ const serviceLinks = [
   { label: "Force Regen", href: "/force-regen" },
 ];
 
+const aboutLinks = [
+  { label: "About Us", href: "/abous-us" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Blogs", href: "/blogs" },
+];
+
 const locationLinks = [
   { label: "Columbia, SC", href: "/columbia-sc" },
   { label: "Irmo, SC", href: "/irmo-sc" },
@@ -34,6 +40,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const [locationsOpen, setLocationsOpen] = useState(false);
 
   useEffect(() => {
@@ -49,12 +56,12 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="nav-logo">
             <Image
-              src="/logo.png"
+              src="/new_logo.webp"
               alt="KM Truck & Trailer Repair"
               width={200}
               height={64}
               priority
-              style={{ objectFit: "contain", height: "56px", width: "auto" }}
+              style={{ objectFit: "contain", height: "64px", width: "auto" }}
             />
           </Link>
 
@@ -91,9 +98,33 @@ export default function Navbar() {
               )}
             </div>
 
-            <Link href="/abous-us" className="nav-link">
-              About Us
-            </Link>
+            {/* About Dropdown */}
+            <div
+              style={{ position: "relative" }}
+              onMouseEnter={() => setAboutOpen(true)}
+              onMouseLeave={() => setAboutOpen(false)}
+            >
+              <button
+                className="nav-dropdown-btn"
+                data-open={aboutOpen}
+                onFocus={() => setAboutOpen(true)}
+              >
+                About <ChevronDown size={18} />
+              </button>
+              {aboutOpen && (
+                <div className="nav-dropdown-panel">
+                  {aboutLinks.map((l) => (
+                    <Link
+                      key={l.href}
+                      href={l.href}
+                      className="nav-dropdown-item"
+                    >
+                      {l.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Locations Dropdown */}
             <div
@@ -125,6 +156,9 @@ export default function Navbar() {
               )}
             </div>
 
+            <Link href="/reviews" className="nav-link">
+              Reviews
+            </Link>
             <Link href="/contact-us" className="nav-link">
               Contact
             </Link>
@@ -162,13 +196,25 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="nav-mobile-divider" />
+            <p className="nav-mobile-section-label">About</p>
+            {aboutLinks.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={() => setMobileOpen(false)}
+                className="nav-mobile-link"
+              >
+                {l.label}
+              </Link>
+            ))}
+            <div className="nav-mobile-divider" />
             <Link
-              href="/abous-us"
+              href="/reviews"
               onClick={() => setMobileOpen(false)}
               className="nav-mobile-link"
               style={{ background: "transparent", fontWeight: 700, color: "var(--gray-900)" }}
             >
-              About Us
+              Reviews
             </Link>
             <Link
               href="/service-areas"

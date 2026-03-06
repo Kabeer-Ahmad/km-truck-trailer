@@ -137,6 +137,24 @@ export default function ContactPage() {
               </div>
             </div>
           </div>
+
+          {/* Service Area Map */}
+          <div style={{ marginTop: "56px" }}>
+            <span className="eyebrow" style={{ display: "block", marginBottom: "8px" }}>Find Us</span>
+            <h2 style={{ marginBottom: "20px" }}>Service Area</h2>
+            <div style={{ position: "relative", width: "100%", height: "450px", borderRadius: "16px", overflow: "hidden", border: "1px solid #E5E9EF", background: "#F8F9FB" }}>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3296.434540565181!2d-81.00946068763731!3d34.28846887356797!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88561b40bb2a768b%3A0xdce0b0259ffde780!2sK%26M%20Truck%20Trailer%20Repair!5e0!3m2!1sen!2s!4v1772813646615!5m2!1sen!2s"
+                width="100%"
+                height="100%"
+                style={{ border: 0, position: "absolute", top: 0, left: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="K&M Truck Trailer Repair - Service Area"
+              />
+            </div>
+          </div>
         </div>
       </section>
     </div>

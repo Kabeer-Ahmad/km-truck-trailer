@@ -608,7 +608,7 @@ img {
   text-decoration: none;
 }
 .nav-logo img {
-  height: 56px;
+  height: 64px;
   width: auto;
   object-fit: contain;
 }
@@ -678,12 +678,13 @@ img {
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: 6px;
+  padding: 6px 16px 16px 16px;
+  margin-top: 0;
+  min-width: 140px;
   background: #fff;
   border: 1px solid var(--gray-200);
   border-radius: 16px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
-  padding: 16px;
   z-index: 100;
   animation: navDropdownIn 0.2s ease;
 }
@@ -700,6 +701,7 @@ img {
   font-weight: 500;
   color: var(--gray-700);
   display: block;
+  white-space: nowrap;
   transition: background 0.2s, color 0.2s;
 }
 .nav-dropdown-item:hover {
@@ -802,7 +804,7 @@ img {
   .nav-desktop { display: none !important; }
   .nav-hamburger { display: flex !important; align-items: center; justify-content: center; }
   .nav-inner { padding: 0 24px; height: 80px; }
-  .nav-logo img { height: 48px; }
+  .nav-logo img { height: 54px; }
   .nav-offset { height: 80px !important; }
 }
 .nav-offset {
@@ -1507,6 +1509,149 @@ img {
   box-shadow:
     0 24px 60px rgba(37, 99, 235, 0.15),
     0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Blog cards ── */
+.blog-card-link:hover .blog-card {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(37, 99, 235, 0.1);
+}
+.blog-card-link:hover .blog-card-title {
+  color: #2563EB;
+}
+.blog-card-link:hover .blog-card-cta {
+  color: #1D4ED8;
+}
+
+/* ── Blog post (single) ── */
+.blog-post .blog-hero {
+  padding-top: 48px;
+  padding-bottom: 56px;
+}
+.blog-hero-inner {
+  max-width: 800px;
+}
+.blog-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #93C5FD;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.blog-back-link:hover {
+  color: #BFDBFE;
+}
+.blog-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.blog-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #CBD5E1;
+  font-size: 0.9rem;
+}
+.blog-title {
+  color: #fff;
+  font-size: clamp(1.85rem, 4.5vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+.blog-excerpt {
+  color: #94A3B8;
+  font-size: 1.15rem;
+  line-height: 1.75;
+  margin: 0;
+}
+.blog-content-section {
+  padding: 64px 0 80px;
+}
+.blog-content-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.blog-lead {
+  margin-bottom: 48px;
+}
+.blog-lead-p {
+  font-size: 1.2rem;
+  line-height: 1.85;
+  color: #374151;
+  margin-bottom: 24px;
+}
+.blog-lead-p:last-child {
+  margin-bottom: 0;
+}
+.blog-featured-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 48px 0 56px;
+  border: 1px solid #E5E9EF;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+}
+.blog-body {
+  margin-top: 0;
+}
+.blog-h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #111827;
+  margin: 48px 0 16px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+.blog-h2:first-child {
+  margin-top: 0;
+}
+.blog-h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 32px 0 12px;
+  line-height: 1.4;
+}
+.blog-p {
+  font-size: 1.1rem;
+  line-height: 1.85;
+  color: #475569;
+  margin-bottom: 24px;
+}
+.blog-p:last-child {
+  margin-bottom: 0;
+}
+.blog-footer-cta {
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid #E5E9EF;
+}
+.blog-cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #2563EB;
+  color: #fff;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background 0.2s, transform 0.2s;
+}
+.blog-cta-button:hover {
+  background: #1D4ED8;
+  transform: translateX(-2px);
 }
 
 /* ── Hero "Fleet Moving" — shimmer gradient ── */

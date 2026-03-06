@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 
 const serviceLinks = [
   { label: "DPF Cleaning", href: "/dpf" },
@@ -20,6 +20,7 @@ const companyLinks = [
   { label: "Services", href: "/services" },
   { label: "Service Areas", href: "/service-areas" },
   { label: "Contact Us", href: "/contact-us" },
+  { label: "Reviews", href: "/reviews" },
 ];
 
 const supportLinks = [
@@ -29,39 +30,43 @@ const supportLinks = [
 ];
 
 export default function Footer() {
+  const mapEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3296.434540565181!2d-81.00946068763731!3d34.28846887356797!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88561b40bb2a768b%3A0xdce0b0259ffde780!2sK%26M%20Truck%20Trailer%20Repair!5e0!3m2!1sen!2s!4v1772813646615!5m2!1sen!2s";
+
   return (
     <footer style={{ background: "#F1F4F8", borderTop: "1px solid #E5E9EF" }}>
-      {/* Main footer */}
-      <div className="container" style={{ paddingTop: "64px", paddingBottom: "48px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1.5fr", gap: "40px" }}>
+      <div className="container" style={{ paddingTop: "48px", paddingBottom: "48px" }}>
+        <div className="footer-grid" style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 1fr 2.5fr", gap: "40px" }}>
 
-          {/* Brand Column */}
+          {/* Brand + Get in Touch */}
           <div>
-          <Link href="/" style={{ display: "inline-flex", alignItems: "center", marginBottom: "16px", textDecoration: "none" }}>
-            <Image
-              src="/logo.png"
-              alt="KM Truck & Trailer Repair"
-              width={160}
-              height={52}
-              style={{ objectFit: "contain", height: "52px", width: "auto" }}
-            />
-          </Link>
+            <Link href="/" style={{ display: "inline-flex", alignItems: "center", marginBottom: "16px", textDecoration: "none" }}>
+              <Image
+                src="/new_logo.webp"
+                alt="KM Truck & Trailer Repair"
+                width={300}
+                height={84}
+                style={{ objectFit: "contain", height: "100px", width: "auto" }}
+              />
+            </Link>
             <p style={{ fontSize: "0.9rem", color: "#6B7280", lineHeight: 1.7, marginBottom: "20px", maxWidth: "280px" }}>
               Since 2013, providing trusted truck and trailer repair services with a focus on reliability, speed, and customer care.
             </p>
-            {/* Social Icons */}
-            <div style={{ display: "flex", gap: "10px" }}>
-              {[
-                { icon: <Facebook size={16} />, href: "#" },
-                { icon: <Instagram size={16} />, href: "#" },
-                { icon: <Twitter size={16} />, href: "#" },
-                { icon: <Youtube size={16} />, href: "#" },
-              ].map((s, i) => (
-                <a key={i} href={s.href} style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "36px", height: "36px", border: "1px solid #D1D5DB", borderRadius: "8px", color: "#6B7280", background: "#fff", transition: "all 0.2s", textDecoration: "none" }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#2563EB"; (e.currentTarget as HTMLElement).style.color = "#fff"; (e.currentTarget as HTMLElement).style.borderColor = "#2563EB"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "#fff"; (e.currentTarget as HTMLElement).style.color = "#6B7280"; (e.currentTarget as HTMLElement).style.borderColor = "#D1D5DB"; }}
-                >{s.icon}</a>
-              ))}
+            <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+              <div style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+                <div style={{ color: "#2563EB", marginTop: "2px", flexShrink: 0 }}><MapPin size={16} /></div>
+                <span style={{ fontSize: "0.875rem", color: "#6B7280", lineHeight: 1.6 }}>1278 State Rd S-20-233,<br />Ridgeway, SC 29130</span>
+              </div>
+              <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+                <div style={{ color: "#2563EB", flexShrink: 0 }}><Phone size={16} /></div>
+                <a href="tel:+18033934907" style={{ fontSize: "0.875rem", color: "#6B7280", textDecoration: "none", fontWeight: 600, transition: "color 0.15s" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = "#2563EB"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = "#6B7280"; }}
+                >(803) 393-4907</a>
+              </div>
+              <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+                <div style={{ color: "#2563EB", flexShrink: 0 }}><Mail size={16} /></div>
+                <a href="mailto:repair@kmtrucktrailer.com" style={{ fontSize: "0.875rem", color: "#6B7280", textDecoration: "none" }}>repair@kmtrucktrailer.com</a>
+              </div>
             </div>
           </div>
 
@@ -103,31 +108,20 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Get in Touch */}
+          {/* Service Area Map */}
           <div>
-            <h4 style={{ fontSize: "0.875rem", fontWeight: 700, color: "#111827", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "16px" }}>Get in Touch</h4>
-            <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-              <div style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
-                <div style={{ color: "#2563EB", marginTop: "2px", flexShrink: 0 }}><MapPin size={16} /></div>
-                <span style={{ fontSize: "0.875rem", color: "#6B7280", lineHeight: 1.6 }}>1278 State Rd S-20-233,<br />Ridgeway, SC 29130</span>
-              </div>
-              <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
-                <div style={{ color: "#2563EB", flexShrink: 0 }}><Phone size={16} /></div>
-                <a href="tel:+18033934907" style={{ fontSize: "0.875rem", color: "#6B7280", textDecoration: "none", fontWeight: 600, transition: "color 0.15s" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = "#2563EB"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = "#6B7280"; }}
-                >(803) 393-4907</a>
-              </div>
-              <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
-                <div style={{ color: "#2563EB", flexShrink: 0 }}><Mail size={16} /></div>
-                <a href="mailto:repair@kmtrucktrailer.com" style={{ fontSize: "0.875rem", color: "#6B7280", textDecoration: "none" }}>repair@kmtrucktrailer.com</a>
-              </div>
-              <div style={{ background: "#fff", border: "1px solid #E5E9EF", borderRadius: "10px", padding: "14px 16px", marginTop: "8px" }}>
-                <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#DCFCE7", color: "#16A34A", fontSize: "0.75rem", fontWeight: 700, padding: "3px 10px", borderRadius: "9999px", marginBottom: "8px" }}>
-                  ● Available 24/7
-                </span>
-                <p style={{ fontSize: "0.8rem", color: "#6B7280", lineHeight: 1.5, margin: 0 }}>Emergency roadside service available any time, any day.</p>
-              </div>
+            <h4 style={{ fontSize: "0.875rem", fontWeight: 700, color: "#111827", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "16px" }}>Service Area</h4>
+            <div className="footer-map-wrap">
+              <iframe
+                src={mapEmbedUrl}
+                width="100%"
+                height="100%"
+                style={{ border: 0, position: "absolute", top: 0, left: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="K&M Truck Trailer Repair - Service Area"
+              />
             </div>
           </div>
         </div>
@@ -146,14 +140,26 @@ export default function Footer() {
       </div>
 
       <style>{`
+        .footer-map-wrap {
+          position: relative;
+          width: 100%;
+          height: 360px;
+          border-radius: 12px;
+          overflow: hidden;
+          border: 1px solid #E5E9EF;
+          background: #fff;
+        }
+        @media (max-width: 600px) {
+          .footer-map-wrap { height: 280px; }
+        }
         @media (max-width: 992px) {
-          footer .container > div:first-child {
+          .footer-grid {
             grid-template-columns: 1fr 1fr !important;
             gap: 32px !important;
           }
         }
         @media (max-width: 600px) {
-          footer .container > div:first-child {
+          .footer-grid {
             grid-template-columns: 1fr !important;
             gap: 40px !important;
           }
