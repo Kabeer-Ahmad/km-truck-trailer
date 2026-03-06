@@ -12,7 +12,7 @@ export default function ContactPage() {
   }
 
   return (
-    <>
+    <div>
       {/* Hero */}
       <section className="page-hero">
         <div className="container">
@@ -139,6 +139,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

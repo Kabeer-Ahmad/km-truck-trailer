@@ -21,45 +21,69 @@ export default function BookingForm() {
     <section
       className="booking-section"
       style={{
-        background: "#fff",
-        padding: "32px 0",
-        borderBottom: "1px solid #E5E9EF",
-        borderTop: "1px solid #E5E9EF",
+        background: "linear-gradient(to bottom, #F8FAFC 0%, #F1F5F9 100%)",
+        padding: "64px 0",
+        borderTop: "1px solid #E2E8F0",
+        borderBottom: "1px solid #E2E8F0",
       }}
     >
-      <div className="container" style={{ maxWidth: "900px" }}>
+      <div className="container" style={{ maxWidth: "920px" }}>
         <Reveal type="up" delay={0}>
-          <h3
+          <div style={{ textAlign: "center", marginBottom: "36px" }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "12px",
+                marginBottom: "12px",
+              }}
+            >
+              <span
+                style={{
+                  width: "44px",
+                  height: "44px",
+                  borderRadius: "12px",
+                  background: "linear-gradient(135deg, #DC2626 0%, #B91C1C 100%)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: "0 4px 14px rgba(220, 38, 38, 0.3)",
+                }}
+              >
+                <Calendar size={22} color="#fff" />
+              </span>
+              <h3
+                style={{
+                  color: "#111827",
+                  fontSize: "1.5rem",
+                  fontWeight: 800,
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                Booking Online
+              </h3>
+            </div>
+            <p style={{ color: "#64748B", fontSize: "0.95rem", margin: 0, maxWidth: "400px", marginLeft: "auto", marginRight: "auto" }}>
+              Schedule your appointment in seconds. We&apos;ll confirm and get you back on the road fast.
+            </p>
+          </div>
+        </Reveal>
+        <Reveal type="up" delay={100}>
+          <form
+            onSubmit={handleSubmit}
+            className="booking-form-wrapper"
             style={{
-              color: "#111827",
-              fontSize: "1.2rem",
-              fontWeight: 700,
-              marginBottom: "20px",
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1fr",
+              gap: "20px 24px",
+              alignItems: "end",
+              background: "#fff",
+              padding: "36px 40px",
+              borderRadius: "20px",
+              boxShadow: "0 4px 24px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04)",
+              border: "1px solid rgba(0,0,0,0.06)",
             }}
           >
-            <span style={{
-              width: "36px", height: "36px", borderRadius: "10px",
-              background: "#2563EB",
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}>
-              <Calendar size={18} color="#fff" />
-            </span>
-            <span style={{ color: "#2563EB" }}>Booking Online</span>
-          </h3>
-        </Reveal>
-        <form
-          onSubmit={handleSubmit}
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            gap: "16px 20px",
-            alignItems: "end",
-          }}
-          className="booking-form-grid"
-        >
           <Reveal type="left" delay={0}>
             <div>
               <label htmlFor="booking-name" className="booking-label">Name</label>
@@ -135,61 +159,73 @@ export default function BookingForm() {
               </button>
             </div>
           </Reveal>
-        </form>
+          </form>
+        </Reveal>
       </div>
       <style>{`
         .booking-label {
           display: block;
           font-size: 0.8rem;
           font-weight: 600;
-          color: #374151;
-          margin-bottom: 6px;
+          color: #475569;
+          margin-bottom: 8px;
+          letter-spacing: 0.02em;
         }
         .booking-input {
           width: 100%;
-          padding: 10px 14px;
-          background: #F8F9FB;
-          border: 1px solid #E5E9EF;
-          border-radius: 10px;
+          padding: 12px 16px;
+          background: #F8FAFC;
+          border: 1.5px solid #E2E8F0;
+          border-radius: 12px;
           color: #111827;
           font-size: 0.95rem;
           font-family: inherit;
           outline: none;
-          transition: border-color 0.2s, box-shadow 0.2s;
+          transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
         }
         .booking-input::placeholder {
-          color: #9CA3AF;
+          color: #94A3B8;
+        }
+        .booking-input:hover {
+          background: #F1F5F9;
+          border-color: #CBD5E1;
         }
         .booking-input:focus {
-          border-color: #2563EB;
-          box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+          border-color: #DC2626;
+          box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+          background: #fff;
         }
         .booking-submit {
           width: 100%;
-          padding: 12px 20px;
-          background: #EF4444;
+          padding: 14px 24px;
+          background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
           color: #fff;
           font-size: 1rem;
           font-weight: 700;
           border: none;
-          border-radius: 10px;
+          border-radius: 12px;
           cursor: pointer;
           font-family: inherit;
-          transition: opacity 0.2s, transform 0.2s;
-          box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+          transition: transform 0.2s, box-shadow 0.2s;
+          box-shadow: 0 4px 16px rgba(220, 38, 38, 0.35);
         }
         .booking-submit:hover {
-          opacity: 0.95;
-          transform: translateY(-1px);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(220, 38, 38, 0.4);
+        }
+        .booking-submit:active {
+          transform: translateY(0);
         }
         @media (max-width: 700px) {
-          .booking-form-grid {
+          .booking-form-wrapper {
             grid-template-columns: 1fr 1fr !important;
+            padding: 28px 24px !important;
           }
         }
         @media (max-width: 480px) {
-          .booking-form-grid {
+          .booking-form-wrapper {
             grid-template-columns: 1fr !important;
+            padding: 24px 20px !important;
           }
         }
       `}</style>

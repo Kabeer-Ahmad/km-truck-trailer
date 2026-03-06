@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
+import Reveal from "./Reveal";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
@@ -29,12 +30,13 @@ export default function StackedServices({ services }: { services: Service[] }) {
   const progressToIndex = (p: number) => Math.min(n - 1, Math.max(0, Math.floor(p * n)));
 
   useEffect(() => {
-    if (n === 0 || !sectionRef.current) return;
+    const section = sectionRef.current;
+    if (n === 0 || !section) return;
 
     const ctx = gsap.context(() => {
       const tween = gsap.to(progressRef.current, { value: 1, ease: "none", duration: 1 });
       ScrollTrigger.create({
-        trigger: sectionRef.current,
+        trigger: section,
         start: "center center",
         end: `+=${SCROLL_LENGTH}`,
         pin: true,
@@ -45,9 +47,20 @@ export default function StackedServices({ services }: { services: Service[] }) {
           setActiveIndex(progressToIndex(self.progress));
         },
       });
-    }, sectionRef);
+    }, section);
 
-    return () => ctx.revert();
+    return () => {
+      ScrollTrigger.getAll().forEach((st) => {
+        if (st.trigger === section) st.kill(true);
+      });
+      setTimeout(() => {
+        try {
+          ctx.revert();
+        } catch {
+          /* ignore cleanup errors during navigation */
+        }
+      }, 0);
+    };
   }, [n]);
 
   const handleCardClick = (i: number) => {
@@ -191,33 +204,41 @@ export default function StackedServices({ services }: { services: Service[] }) {
 
         {/* ── Right Side: Static Information ── */}
         <div className="stacked-right" style={{ flex: "1 1 50%", paddingLeft: "40px" }}>
-          <span className="eyebrow" style={{ fontSize: "0.85rem", letterSpacing: "0.15em" }}>
-            Our Expertise
-          </span>
-          <h2 style={{ fontSize: "clamp(2.5rem, 4vw, 3.5rem)", marginBottom: "24px", lineHeight: 1.1 }}>
-            Comprehensive<br />Repair Solutions
-          </h2>
-          <p style={{ fontSize: "1.1rem", marginBottom: "40px", maxWidth: "480px" }}>
-            From minor adjustments to complete overhauls, our highly trained
-            technicians ensure your fleet stays on the road. We bring the
-            repair shop directly to your breakdown location.
-          </p>
-          <div
-            className="stats-row"
-            style={{ display: "flex", gap: "16px", flexWrap: "wrap", marginBottom: "40px" }}
-          >
-            <div style={{ padding: "16px 24px", background: "#EFF6FF", borderRadius: "12px", border: "1px solid #BFDBFE", flex: "1 1 auto", minWidth: "150px" }}>
-              <div style={{ fontSize: "1.5rem", fontWeight: 800, color: "#1D4ED8", marginBottom: "4px" }}>24/7</div>
-              <div style={{ fontSize: "0.85rem", color: "#3B82F6", fontWeight: 600 }}>Emergency Dispatch</div>
+          <Reveal type="right">
+            <span className="eyebrow" style={{ fontSize: "0.85rem", letterSpacing: "0.15em" }}>
+              Our Expertise
+            </span>
+          </Reveal>
+          <Reveal type="left" delay={100}>
+            <h2 style={{ fontSize: "clamp(2.5rem, 4vw, 3.5rem)", marginBottom: "24px", lineHeight: 1.1 }}>
+              Comprehensive<br />Repair Solutions
+            </h2>
+          </Reveal>
+          <Reveal type="right" delay={200}>
+            <p style={{ fontSize: "1.1rem", marginBottom: "40px", maxWidth: "480px" }}>
+              From minor adjustments to complete overhauls, our highly trained
+              technicians ensure your fleet stays on the road. We bring the
+              repair shop directly to your breakdown location.
+            </p>
+          </Reveal>
+          <Reveal type="left" delay={300}>
+            <div
+              className="stats-row"
+              style={{ display: "flex", gap: "16px", flexWrap: "wrap", marginBottom: "40px" }}
+            >
+              <div style={{ padding: "16px 24px", background: "#EFF6FF", borderRadius: "12px", border: "1px solid #BFDBFE", flex: "1 1 auto", minWidth: "150px" }}>
+                <div style={{ fontSize: "1.5rem", fontWeight: 800, color: "#1D4ED8", marginBottom: "4px" }}>24/7</div>
+                <div style={{ fontSize: "0.85rem", color: "#3B82F6", fontWeight: 600 }}>Emergency Dispatch</div>
+              </div>
+              <div style={{ padding: "16px 24px", background: "#fff", borderRadius: "12px", border: "1px solid #E5E9EF", boxShadow: "0 4px 12px rgba(0,0,0,0.02)", flex: "1 1 auto", minWidth: "150px" }}>
+                <div style={{ fontSize: "1.5rem", fontWeight: 800, color: "#111827", marginBottom: "4px" }}>12+</div>
+                <div style={{ fontSize: "0.85rem", color: "#6B7280", fontWeight: 600 }}>Specialized Services</div>
+              </div>
             </div>
-            <div style={{ padding: "16px 24px", background: "#fff", borderRadius: "12px", border: "1px solid #E5E9EF", boxShadow: "0 4px 12px rgba(0,0,0,0.02)", flex: "1 1 auto", minWidth: "150px" }}>
-              <div style={{ fontSize: "1.5rem", fontWeight: 800, color: "#111827", marginBottom: "4px" }}>12+</div>
-              <div style={{ fontSize: "0.85rem", color: "#6B7280", fontWeight: 600 }}>Specialized Services</div>
-            </div>
-          </div>
-
-          <Link
-            href="/services"
+          </Reveal>
+          <Reveal type="right" delay={400}>
+            <Link
+              href="/services"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -232,8 +253,9 @@ export default function StackedServices({ services }: { services: Service[] }) {
               transition: "all 0.2s ease",
             }}
           >
-            View All Services <ArrowRight size={18} />
-          </Link>
+              View All Services <ArrowRight size={18} />
+            </Link>
+          </Reveal>
         </div>
       </div>
     </section>

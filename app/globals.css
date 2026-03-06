@@ -320,11 +320,17 @@ img {
 .testimonial-card {
   background: var(--white);
   border: 1px solid var(--gray-200);
-  border-radius: var(--radius-lg);
-  padding: 28px;
+  border-radius: 16px;
+  padding: 24px 26px;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+.testimonial-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border-color: var(--gray-300);
 }
 .star-row {
   color: var(--amber-500);
@@ -652,20 +658,20 @@ img {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: var(--blue-600);
+  background: #DC2626;
   color: #fff;
   padding: 14px 26px;
   border-radius: 12px;
   font-weight: 700;
   font-size: 1rem;
   text-decoration: none;
-  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.35);
   transition: all 0.2s;
 }
 .nav-cta:hover {
-  background: var(--blue-700);
+  background: #B91C1C;
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 6px 24px rgba(220, 38, 38, 0.4);
 }
 .nav-dropdown-panel {
   position: absolute;
@@ -779,18 +785,18 @@ img {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: var(--blue-600);
+  background: #DC2626;
   color: #fff;
   padding: 18px;
   border-radius: 14px;
   font-weight: 700;
   font-size: 1.1rem;
   text-decoration: none;
-  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.35);
   transition: all 0.2s;
 }
 .nav-mobile-cta:hover {
-  background: var(--blue-700);
+  background: #B91C1C;
 }
 @media (max-width: 768px) {
   .nav-desktop { display: none !important; }
@@ -1115,6 +1121,64 @@ img {
   }
   h2 {
     font-size: 1.5rem !important;
+  }
+}
+
+/* ── Need Help Right Now section ── */
+.need-help-section {
+  min-height: 520px;
+}
+.need-help-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url(/hero-truck-white.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.need-help-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.need-help-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 28px 32px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  animation: needHelpCardFloat 8s ease-in-out infinite;
+}
+.need-help-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+}
+.need-help-card--blue {
+  border-left: 4px solid #2563EB;
+  animation-delay: 0s;
+}
+.need-help-card--amber {
+  border-left: 4px solid #F59E0B;
+  animation-delay: 1.5s;
+}
+.need-help-card--green {
+  border-left: 4px solid #059669;
+  animation-delay: 3s;
+}
+@keyframes needHelpCardFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.need-help-card:hover {
+  animation: none;
+}
+@media (max-width: 768px) {
+  .need-help-grid {
+    grid-template-columns: 1fr !important;
   }
 }
 
@@ -1589,9 +1653,22 @@ img {
   }
 }
 
-/* ── Our Promise mobile spacing ── */
+/* ── Our Promise section ── */
+.our-promise-section {
+  padding: 96px 0 !important;
+}
+.our-promise-header .eyebrow {
+  margin-bottom: 12px;
+}
+.our-promise-header h2 {
+  margin-bottom: 16px !important;
+}
+.our-promise-header p {
+  margin-bottom: 0;
+}
 @media (max-width: 992px) {
   .our-promise-section {
     margin-top: 60px;
+    padding: 72px 0 !important;
   }
 }

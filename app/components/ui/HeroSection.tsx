@@ -4,67 +4,62 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Phone, ArrowRight, CheckCircle } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const HERO_SCROLL_LENGTH = 700;
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const truckRef = useRef<HTMLDivElement>(null);
-  const progressRef = useRef(0);
-  const truckCompleteRef = useRef(false);
 
-  /* Scroll-jack: truck moves on scroll input, page does NOT scroll until truck is done */
   useEffect(() => {
+    const section = sectionRef.current;
     const truck = truckRef.current;
-    if (!truck) return;
+    if (!section || !truck) return;
 
-    const updateTruck = (progress: number) => {
-      const p = Math.min(1, Math.max(0, progress));
-      const isMobile = window.innerWidth <= 768;
-      const startX = isMobile ? 75 : 120;
-      const moveMult = isMobile ? 150 : 220;
-      truck.style.transform = `translate3d(${startX - (p * moveMult)}%, 0, 0)`;
-    };
-
-    const unlockScroll = () => {
-      truckCompleteRef.current = true;
-      document.body.style.overflow = "";
-    };
-
-    const handleWheel = (e: WheelEvent) => {
-      if (truckCompleteRef.current) return;
-      e.preventDefault();
-      const delta = e.deltaY * 0.0015;
-      progressRef.current = Math.min(1, Math.max(0, progressRef.current + delta));
-      updateTruck(progressRef.current);
-      if (progressRef.current >= 1) unlockScroll();
-    };
-
-    let touchPrevY = 0;
-    const handleTouchStart = (e: TouchEvent) => {
-      touchPrevY = e.touches[0].clientY;
-    };
-    const handleTouchMove = (e: TouchEvent) => {
-      if (truckCompleteRef.current) return;
-      const y = e.touches[0].clientY;
-      const delta = (touchPrevY - y) * 0.002; // Swipe up = positive
-      touchPrevY = y;
-      progressRef.current = Math.min(1, Math.max(0, progressRef.current + delta));
-      updateTruck(progressRef.current);
-      if (progressRef.current >= 1) unlockScroll();
-      if (e.cancelable) e.preventDefault();
-    };
-
-    document.body.style.overflow = "hidden";
-    updateTruck(0);
-
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    const mm = gsap.matchMedia();
+    mm.add("(max-width: 768px)", () => {
+      gsap.set(truck, { xPercent: 75 });
+      const tween = gsap.to(truck, { xPercent: -75, ease: "none", duration: 1 });
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: `+=${HERO_SCROLL_LENGTH}`,
+        pin: true,
+        scrub: 1,
+        anticipatePin: 1,
+        animation: tween,
+      });
+    });
+    mm.add("(min-width: 769px)", () => {
+      gsap.set(truck, { xPercent: 120 });
+      const tween = gsap.to(truck, { xPercent: -100, ease: "none", duration: 1 });
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: `+=${HERO_SCROLL_LENGTH}`,
+        pin: true,
+        scrub: 1,
+        anticipatePin: 1,
+        animation: tween,
+      });
+    });
 
     return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("wheel", handleWheel);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
+      ScrollTrigger.getAll().forEach((st) => {
+        if (st.trigger === section) st.kill(true);
+      });
+      setTimeout(() => {
+        try {
+          mm.revert();
+        } catch {
+          /* ignore cleanup errors during navigation */
+        }
+      }, 0);
     };
   }, []);
 
@@ -89,10 +84,13 @@ export default function HeroSection() {
 
   return (
     <div ref={containerRef} style={{ width: "100%", position: "relative", backgroundColor: "#0F172A" }}>
-      <section style={{
-        position: "relative", width: "100%", height: "100svh", minHeight: "500px",
-        display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden"
-      }}>
+      <section
+        ref={sectionRef}
+        style={{
+          position: "relative", width: "100%", height: "100svh", minHeight: "500px",
+          display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden"
+        }}
+      >
         {/* ── Parallax Animated Truck (above text) ── */}
         <div ref={truckRef} style={{
           position: "absolute", inset: 0, zIndex: 5,
@@ -221,9 +219,9 @@ export default function HeroSection() {
             >
               <a href="tel:+18033934907" style={{
                 display: "inline-flex", alignItems: "center", gap: "8px",
-                background: "#2563EB", color: "#fff", padding: "clamp(12px, 2.5vw, 16px) clamp(20px, 4vw, 32px)",
+                background: "#DC2626", color: "#fff", padding: "clamp(12px, 2.5vw, 16px) clamp(20px, 4vw, 32px)",
                 borderRadius: "12px", fontWeight: 700, fontSize: "clamp(0.95rem, 2vw, 1.1rem)",
-                textDecoration: "none", boxShadow: "0 6px 28px rgba(37,99,235,0.5)",
+                textDecoration: "none", boxShadow: "0 6px 28px rgba(220,38,38,0.4)",
                 whiteSpace: "nowrap"
               }}>
                 <Phone size={20} /> Call (803) 393-4907
