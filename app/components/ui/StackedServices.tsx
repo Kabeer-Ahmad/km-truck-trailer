@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
@@ -20,12 +20,24 @@ interface Service {
   image?: string;
 }
 
-const SCROLL_LENGTH = 4000; // px of scroll to go through all services
+const SCROLL_LENGTH_DESKTOP = 4000;
+const SCROLL_LENGTH_MOBILE = 2200;
+const CARD_ROW_HEIGHT_DESKTOP = 180;
+const CARD_ROW_HEIGHT_MOBILE = 130;
 
 export default function StackedServices({ services }: { services: Service[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" && window.innerWidth <= 992);
   const sectionRef = useRef<HTMLElement>(null);
   const progressRef = useRef({ value: 0 });
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 992px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   const n = services.length;
   const progressToIndex = (p: number) => Math.min(n - 1, Math.max(0, Math.floor(p * n)));
@@ -35,19 +47,40 @@ export default function StackedServices({ services }: { services: Service[] }) {
       const section = sectionRef.current;
       if (n === 0 || !section) return;
 
-      const tween = gsap.to(progressRef.current, { value: 1, ease: "none", duration: 1 });
-      ScrollTrigger.create({
-        trigger: section,
-        start: "center center",
-        end: `+=${SCROLL_LENGTH}`,
-        pin: true,
-        scrub: 1,
-        anticipatePin: 1,
-        animation: tween,
-        onUpdate: (self) => {
-          setActiveIndex(progressToIndex(self.progress));
-        },
+      const mm = gsap.matchMedia();
+      mm.add("(max-width: 992px)", () => {
+        setIsMobile(true);
+        const tween = gsap.to(progressRef.current, { value: 1, ease: "none", duration: 1 });
+        ScrollTrigger.create({
+          trigger: section,
+          start: "center center",
+          end: `+=${SCROLL_LENGTH_MOBILE}`,
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+          animation: tween,
+          onUpdate: (self) => {
+            setActiveIndex(progressToIndex(self.progress));
+          },
+        });
       });
+      mm.add("(min-width: 993px)", () => {
+        setIsMobile(false);
+        const tween = gsap.to(progressRef.current, { value: 1, ease: "none", duration: 1 });
+        ScrollTrigger.create({
+          trigger: section,
+          start: "center center",
+          end: `+=${SCROLL_LENGTH_DESKTOP}`,
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+          animation: tween,
+          onUpdate: (self) => {
+            setActiveIndex(progressToIndex(self.progress));
+          },
+        });
+      });
+      return () => mm.revert();
     },
     { scope: sectionRef, dependencies: [n], revertOnUpdate: true }
   );
@@ -62,14 +95,13 @@ export default function StackedServices({ services }: { services: Service[] }) {
     }
   };
 
-  const CARD_ROW_HEIGHT = 180;
-
   const getCardStyle = (i: number) => {
     const offset = i - activeIndex;
     const absOffset = Math.abs(offset);
     const isActive = offset === 0;
     const isVisible = absOffset <= 3;
-    const translateY = offset * CARD_ROW_HEIGHT;
+    const rowH = isMobile ? CARD_ROW_HEIGHT_MOBILE : CARD_ROW_HEIGHT_DESKTOP;
+    const translateY = offset * rowH;
     const opacity = isVisible ? (isActive ? 1 : absOffset === 1 ? 0.85 : absOffset === 2 ? 0.5 : 0.2) : 0;
     const scale = isActive ? 1 : absOffset === 1 ? 0.94 : absOffset === 2 ? 0.88 : 0.82;
     const zIndex = 30 - absOffset;
@@ -96,6 +128,7 @@ export default function StackedServices({ services }: { services: Service[] }) {
   return (
     <section
       ref={sectionRef}
+      className="stacked-services-section"
       style={{
         background: "#F8F9FB",
         borderTop: "1px solid #E5E9EF",
@@ -148,10 +181,11 @@ export default function StackedServices({ services }: { services: Service[] }) {
                   transition: "opacity 0.2s ease",
                   minHeight: "140px",
                 }}
-                className="hover-card"
+                className="hover-card stacked-card-inner"
               >
                 {/* Left: Text */}
                 <div
+                  className="stacked-card-text"
                   style={{
                     flex: "1 1 60%",
                     display: "flex",
@@ -169,20 +203,19 @@ export default function StackedServices({ services }: { services: Service[] }) {
                 </div>
                 {/* Right: Image (rectangular, fills card height) */}
                 {s.image && (
-                  <div
-                    style={{
-                      flex: "0 0 38%",
-                      position: "relative",
-                      alignSelf: "stretch",
-                      minWidth: "140px",
-                    }}
+                  <div className="stacked-card-img-wrap" style={{
+                    flex: "0 0 38%",
+                    position: "relative",
+                    alignSelf: "stretch",
+                    minWidth: "140px",
+                  }}
                   >
                     <Image
                       src={s.image}
                       alt={s.title}
                       fill
                       style={{ objectFit: "cover", objectPosition: "center" }}
-                      sizes="(max-width: 720px) 38vw, 200px"
+                      sizes="(max-width: 720px) 100vw, 200px"
                     />
                   </div>
                 )}

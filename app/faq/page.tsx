@@ -38,7 +38,7 @@ function FAQAccordion({ items }: { items: FAQItem[] }) {
 export default function FAQPage() {
   return (
     <>
-      <section className="page-hero">
+      <section className="page-hero faq-page-hero">
         <div className="container">
           <Reveal type="left">
             <div className="page-hero__breadcrumb">
@@ -68,22 +68,22 @@ export default function FAQPage() {
         </div>
       </section>
 
-      <section className="section">
-        <div className="container" style={{ maxWidth: "900px" }}>
+      <section className="section faq-page-section">
+        <div className="container faq-page-container" style={{ maxWidth: "900px" }}>
           {allFaqCategories.map((cat, index) => (
             <Reveal
               key={cat.href}
               type={index % 2 === 0 ? "left" : "right"}
               delay={index * 80}
             >
-              <div
+              <div className="faq-category-block"
                 style={{
                   marginBottom: "48px",
                   paddingBottom: "48px",
                   borderBottom: "1px solid #E5E9EF",
                 }}
               >
-                <div
+                <div className="faq-category-header"
                   style={{
                     display: "flex",
                     alignItems: "center",

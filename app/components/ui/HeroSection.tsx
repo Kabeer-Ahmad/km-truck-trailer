@@ -10,7 +10,8 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const HERO_SCROLL_LENGTH = 700;
+const HERO_SCROLL_LENGTH_DESKTOP = 700;
+const HERO_SCROLL_LENGTH_MOBILE = 420;
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -25,12 +26,13 @@ export default function HeroSection() {
 
       const mm = gsap.matchMedia();
       mm.add("(max-width: 768px)", () => {
-        gsap.set(truck, { xPercent: 75 });
-        const tween = gsap.to(truck, { xPercent: -75, ease: "none", duration: 1 });
+        /* Mobile: truck starts further out (right), animates left on scroll; hero size unchanged */
+        gsap.set(truck, { xPercent: 84 });
+        const tween = gsap.to(truck, { xPercent: -72, ease: "none", duration: 1 });
         ScrollTrigger.create({
           trigger: section,
           start: "top top",
-          end: `+=${HERO_SCROLL_LENGTH}`,
+          end: `+=${HERO_SCROLL_LENGTH_MOBILE}`,
           pin: true,
           scrub: 1,
           anticipatePin: 1,
@@ -43,7 +45,7 @@ export default function HeroSection() {
         ScrollTrigger.create({
           trigger: section,
           start: "top top",
-          end: `+=${HERO_SCROLL_LENGTH}`,
+          end: `+=${HERO_SCROLL_LENGTH_DESKTOP}`,
           pin: true,
           scrub: 1,
           anticipatePin: 1,
@@ -75,44 +77,35 @@ export default function HeroSection() {
   ];
 
   return (
-    <div ref={containerRef} style={{ width: "100%", position: "relative", backgroundColor: "#0F172A" }}>
+    <div ref={containerRef} className="hero-outer" style={{ width: "100%", position: "relative", backgroundColor: "#0F172A" }}>
       <section
         ref={sectionRef}
+        className="hero-section-main"
         style={{
           position: "relative", width: "100%", height: "100svh", minHeight: "500px",
           display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden"
         }}
       >
         {/* ── Parallax Animated Truck (above text) ── */}
-        <div ref={truckRef} style={{
-          position: "absolute", inset: 0, zIndex: 5,
-          willChange: "transform", backfaceVisibility: "hidden",
-        }}>
-          <style jsx>{`
-            .responsive-truck {
-              object-fit: cover;
-              object-position: center;
-            }
-            @media (max-width: 768px) {
-              .responsive-truck {
-                object-position: left center !important;
-              }
-            }
-          `}</style>
-          <Image
-            src="/bg-truck-mov.png"
-            alt="Moving Truck"
-            className="responsive-truck"
-            fill
-            priority
-            unoptimized
-            sizes="100vw"
-            style={{ objectFit: "cover" }}
-          />
+        <div className="hero-truck-wrap" style={{ position: "absolute", inset: 0, zIndex: 5 }}>
+          <div ref={truckRef} style={{
+            position: "absolute", inset: 0,
+            willChange: "transform", backfaceVisibility: "hidden",
+          }}>
+            <Image
+              src="/truck_new_hero.png"
+              alt="K&M Truck Trailer Repair - professional truck and trailer"
+              fill
+              priority
+              unoptimized
+              sizes="100vw"
+              className="hero-truck-img"
+            />
+          </div>
         </div>
 
-      {/* ── Floating particles ── */}
-      <div style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none", overflow: "hidden" }}>
+      {/* ── Floating particles (hidden on mobile for clean background) ── */}
+      <div className="hero-particles" style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none", overflow: "hidden" }}>
         {[
           { w: 6, h: 6, top: "15%", left: "72%", delay: "0s", dur: "7s", opacity: 0.35 },
           { w: 10, h: 10, top: "65%", left: "80%", delay: "1.5s", dur: "9s", opacity: 0.2 },
@@ -122,6 +115,34 @@ export default function HeroSection() {
           { w: 12, h: 12, top: "20%", left: "90%", delay: "1s", dur: "13s", opacity: 0.15 },
           { w: 3, h: 3, top: "55%", left: "92%", delay: "4s", dur: "7s", opacity: 0.5 },
           { w: 7, h: 7, top: "85%", left: "75%", delay: "2.5s", dur: "10s", opacity: 0.2 },
+          { w: 5, h: 5, top: "8%", left: "70%", delay: "0.5s", dur: "8s", opacity: 0.3 },
+          { w: 9, h: 9, top: "40%", left: "82%", delay: "1.2s", dur: "10s", opacity: 0.22 },
+          { w: 4, h: 4, top: "60%", left: "88%", delay: "2.8s", dur: "6.5s", opacity: 0.4 },
+          { w: 6, h: 6, top: "25%", left: "76%", delay: "1.8s", dur: "9s", opacity: 0.28 },
+          { w: 11, h: 11, top: "70%", left: "72%", delay: "0.3s", dur: "12s", opacity: 0.18 },
+          { w: 3, h: 3, top: "50%", left: "95%", delay: "3.5s", dur: "7s", opacity: 0.48 },
+          { w: 7, h: 7, top: "12%", left: "82%", delay: "2.2s", dur: "8.5s", opacity: 0.25 },
+          { w: 5, h: 5, top: "78%", left: "85%", delay: "1.6s", dur: "9.5s", opacity: 0.32 },
+          { w: 8, h: 8, top: "35%", left: "88%", delay: "0.7s", dur: "11s", opacity: 0.2 },
+          { w: 4, h: 4, top: "90%", left: "70%", delay: "4.2s", dur: "6s", opacity: 0.42 },
+          { w: 6, h: 6, top: "48%", left: "74%", delay: "2.6s", dur: "8s", opacity: 0.3 },
+          { w: 10, h: 10, top: "18%", left: "78%", delay: "1.4s", dur: "10.5s", opacity: 0.18 },
+          /* Left side */
+          { w: 5, h: 5, top: "20%", left: "12%", delay: "0.2s", dur: "8s", opacity: 0.32 },
+          { w: 8, h: 8, top: "60%", left: "8%", delay: "1.8s", dur: "10s", opacity: 0.22 },
+          { w: 4, h: 4, top: "35%", left: "22%", delay: "0.6s", dur: "6.5s", opacity: 0.4 },
+          { w: 7, h: 7, top: "78%", left: "18%", delay: "2.4s", dur: "9s", opacity: 0.26 },
+          { w: 6, h: 6, top: "12%", left: "28%", delay: "1s", dur: "7.5s", opacity: 0.3 },
+          { w: 10, h: 10, top: "45%", left: "5%", delay: "3s", dur: "11s", opacity: 0.18 },
+          { w: 3, h: 3, top: "55%", left: "32%", delay: "2s", dur: "6s", opacity: 0.48 },
+          { w: 9, h: 9, top: "85%", left: "25%", delay: "0.8s", dur: "10.5s", opacity: 0.2 },
+          { w: 5, h: 5, top: "28%", left: "38%", delay: "1.5s", dur: "8.5s", opacity: 0.35 },
+          { w: 7, h: 7, top: "68%", left: "15%", delay: "0.4s", dur: "9.5s", opacity: 0.24 },
+          { w: 4, h: 4, top: "42%", left: "42%", delay: "2.8s", dur: "7s", opacity: 0.38 },
+          { w: 6, h: 6, top: "92%", left: "10%", delay: "1.2s", dur: "8s", opacity: 0.28 },
+          { w: 11, h: 11, top: "50%", left: "2%", delay: "3.2s", dur: "12s", opacity: 0.16 },
+          { w: 5, h: 5, top: "15%", left: "35%", delay: "2.2s", dur: "7.5s", opacity: 0.33 },
+          { w: 8, h: 8, top: "72%", left: "30%", delay: "0.9s", dur: "10s", opacity: 0.22 },
         ].map((p, i) => (
           <div key={i} style={{
             position: "absolute",
@@ -133,12 +154,12 @@ export default function HeroSection() {
             animation: `particleDrift ${p.dur} ${p.delay} ease-in-out infinite`,
           }} />
         ))}
-        {/* Glowing orbs */}
+        {/* Glowing orbs — hidden on mobile to avoid plain blue patch that vanishes on scroll */}
         {[
           { size: 300, top: "10%", left: "60%", color: "rgba(37,99,235,0.08)", delay: "0s" },
           { size: 200, top: "55%", left: "75%", color: "rgba(96,165,250,0.06)", delay: "3s" },
         ].map((orb, i) => (
-          <div key={i} style={{
+          <div key={i} className="hero-glow-orb" style={{
             position: "absolute",
             top: orb.top, left: orb.left,
             width: orb.size, height: orb.size,
@@ -150,12 +171,12 @@ export default function HeroSection() {
         ))}
       </div>
 
-      {/* ── Directional gradient overlay ── */}
-      <div style={{
+      {/* ── Gradient overlay for text readability ── */}
+      <div className="hero-overlay" style={{
         position: "absolute", inset: 0, zIndex: 2,
         background: "linear-gradient(105deg, rgba(15,23,42,0.92) 0%, rgba(30,41,59,0.78) 35%, rgba(51,65,85,0.5) 58%, rgba(71,85,105,0.15) 80%, transparent 100%)"
       }} />
-      <div style={{
+      <div className="hero-overlay-bottom" style={{
         position: "absolute", inset: 0, zIndex: 2,
         background: "linear-gradient(to top, rgba(15,23,42,0.35) 0%, transparent 35%)"
       }} />

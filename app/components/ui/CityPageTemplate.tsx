@@ -273,7 +273,7 @@ export default function CityPageTemplate({ city, state = "SC", description, high
             <div className="section-header section-header--center" style={{ marginBottom: "50px" }}>
               <span className="eyebrow">Reviews</span>
               <h2 style={{ fontSize: "clamp(2rem, 4vw, 2.5rem)", fontWeight: 800 }}>What Drivers Are Saying</h2>
-              <p style={{ color: "#64748B", fontSize: "1.1rem" }}>Rated EXCELLENT - Based on 69 Google reviews</p>
+              <p style={{ color: "#64748B", fontSize: "1.1rem" }}>Rated EXCELLENT - Based on 100+ Google reviews</p>
             </div>
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "24px" }}>

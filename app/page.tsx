@@ -9,6 +9,7 @@ import StackedServices from "@/app/components/ui/StackedServices";
 import BrandsSlider from "@/app/components/ui/BrandsSlider";
 import StatsBar from "@/app/components/ui/StatsBar";
 import TestimonialsSlider from "@/app/components/ui/TestimonialsSlider";
+import { testimonials } from "@/app/reviews/reviews-data";
 
 export const metadata: Metadata = {
   title: "Truck & Trailer Repair in South Carolina | 24/7 Emergency Service",
@@ -35,22 +36,6 @@ const trustPillars = [
   { icon: <CreditCard size={28} />, title: "Flexible Payment", desc: "Convenient payment choices designed to fit your budget and keep your fleet moving.", color: "#059669", bg: "#ECFDF5" },
   { icon: <Star size={28} />, title: "Satisfaction Guarantee", desc: "Quality service backed by our commitment to customer satisfaction - we make it right.", color: "#D97706", bg: "#FFFBEB" },
   { icon: <HeartHandshake size={28} />, title: "Friendly Support", desc: "A helpful team ready to assist you every step of the way, from diagnosis to delivery.", color: "#7C3AED", bg: "#F5F3FF" },
-];
-
-const testimonials = [
-  { name: "Leonel Truckin", text: "They are so amazing people, well spoken, on time and quick. They took 37 minutes to fix my brake leaks on my semi truck. Wonderful service!", stars: 5 },
-  { name: "Markingley Constant", text: "9 years in trucking - I've never been to any shop like this. Honest, fast, very reasonable price. Highly recommend K&M to everyone in South Carolina.", stars: 5 },
-  { name: "Daman Grewal", text: "Best diesel repair shop in South Carolina on I-77 and I-26 area. Very truthful and honest people. Highly recommend to anybody.", stars: 5 },
-  { name: "James Mitchell", text: "Broke down near Lexington and they came out within an hour. Fixed my AC compressor on the spot. Professional and fair pricing. Will use again.", stars: 5 },
-  { name: "Carlos Rodriguez", text: "DPF cleaning was fast and done right. My truck runs better than ever. These guys know their stuff.", stars: 5 },
-  { name: "Marcus Williams", text: "Emergency roadside at 2 AM on I-77. They showed up quickly, fixed my tire, and got me back on the road. Lifesavers!", stars: 5 },
-  { name: "Robert Chen", text: "Transmission work was top notch. Honest diagnosis and didn't upsell. Trust these mechanics completely.", stars: 5 },
-  { name: "David Thompson", text: "Fleet maintenance for 15 trucks. K&M handles everything - brakes, tires, electrical. Reliable and affordable.", stars: 5 },
-  { name: "Michael Johnson", text: "Stopped for a brake issue and they had me out in under two hours. Great communication and quality work.", stars: 5 },
-  { name: "Anthony Davis", text: "Battery died in Cayce. They came to me, tested everything, replaced what was needed. No extra charges.", stars: 5 },
-  { name: "Kevin Brown", text: "Steering felt loose - they found the problem, fixed it, and aligned the front end. Drives like new.", stars: 5 },
-  { name: "Thomas Wilson", text: "Trailer door wouldn't close. Mobile tech showed up same day and had it fixed in 45 minutes. Excellent service.", stars: 5 },
-  { name: "Steven Martinez", text: "Force regen and DPF service. Truck passed inspection no problem. Worth every penny.", stars: 5 },
 ];
 
 const areas = [
@@ -126,7 +111,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Testimonials ── */}
-      <section className="section">
+      <section className="section landing-testimonials">
         <div className="container">
           <div className="section-header section-header--center">
             <Reveal type="left">
@@ -141,12 +126,12 @@ export default function HomePage() {
               </p>
             </Reveal>
             <Reveal type="right" delay={300}>
-              <div style={{ display: "inline-flex", alignItems: "center", gap: "10px", background: "#F8F9FB", border: "1px solid #E5E9EF", borderRadius: "9999px", padding: "8px 18px", marginTop: "4px" }}>
+              <div className="testimonials-google-badge" style={{ display: "inline-flex", alignItems: "center", gap: "10px", background: "#F8F9FB", border: "1px solid #E5E9EF", borderRadius: "9999px", padding: "8px 18px", marginTop: "4px" }}>
                 <span style={{ color: "#F59E0B", fontSize: "0.9rem" }}>{'★'.repeat(5)}</span>
                 <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "#111827" }}>EXCELLENT</span>
                 <span style={{ fontSize: "0.8rem", color: "#6B7280", display: "flex", alignItems: "center", gap: "6px" }}>
                   <Image src="/Google_Logo.webp" alt="Google" width={56} height={18} style={{ objectFit: "contain", height: "18px", width: "auto" }} unoptimized />
-                  Based on 69 Google reviews
+                  Based on 100+ Google reviews
                 </span>
               </div>
             </Reveal>
@@ -158,7 +143,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Service Areas ── */}
-      <section style={{ background: "#0F172A", padding: "80px 0", position: "relative", overflow: "hidden" }}>
+      <section className="landing-service-areas" style={{ background: "#0F172A", padding: "80px 0", position: "relative", overflow: "hidden" }}>
         {/* Animated background orb */}
         <div style={{
           position: "absolute", top: "20%", right: "-100px", width: "400px", height: "400px",
@@ -215,7 +200,7 @@ export default function HomePage() {
                   animation: "borderPulse 4s ease-in-out infinite"
                 }}>
                   <p style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#60A5FA", marginBottom: "16px" }}>Areas We Serve</p>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+                  <div className="areas-we-serve-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
                     {areas.map((a, i) => (
                       <div key={a} style={{
                         display: "flex", alignItems: "center", gap: "6px",
@@ -237,7 +222,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Our Team ── */}
-      <section className="section" style={{ background: "#fff", padding: "80px 0", borderTop: "1px solid #E5E9EF", borderBottom: "1px solid #E5E9EF" }}>
+      <section className="section landing-our-team" style={{ background: "#fff", padding: "80px 0", borderTop: "1px solid #E5E9EF", borderBottom: "1px solid #E5E9EF" }}>
         <div className="container">
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "60px", alignItems: "center" }} className="grid-two-col">
             <Reveal type="left">
@@ -320,7 +305,7 @@ export default function HomePage() {
       </section>
 
       {/* ── CTA Banner ── */}
-      <section style={{ background: "#fff", padding: "80px 0", borderTop: "1px solid #F1F4F8" }}>
+      <section className="landing-cta-banner" style={{ background: "#fff", padding: "80px 0", borderTop: "1px solid #F1F4F8" }}>
         <div className="container" style={{ textAlign: "center" }}>
           <Reveal type="left">
             <span className="eyebrow">Get Started</span>
@@ -334,7 +319,7 @@ export default function HomePage() {
             </p>
           </Reveal>
           <Reveal type="right" delay={300}>
-            <div style={{ display: "flex", gap: "12px", justifyContent: "center", alignItems: "center", flexWrap: "wrap" }}>
+            <div className="cta-get-started-form" style={{ display: "flex", gap: "12px", justifyContent: "center", alignItems: "center", flexWrap: "wrap" }}>
               <input type="email" placeholder="Enter your email" style={{ padding: "12px 18px", border: "1.5px solid #E5E9EF", borderRadius: "10px", fontSize: "0.95rem", outline: "none", width: "250px", color: "#111827", background: "#fff" }} />
               <a href="tel:+18033934907" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "#2563EB", color: "#fff", padding: "12px 24px", borderRadius: "10px", fontWeight: 700, textDecoration: "none" }}>
                 <Phone size={16} /> Get in Touch

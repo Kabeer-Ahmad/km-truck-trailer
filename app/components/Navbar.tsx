@@ -42,6 +42,9 @@ export default function Navbar() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [locationsOpen, setLocationsOpen] = useState(false);
+  const [mobileServicesExpanded, setMobileServicesExpanded] = useState(false);
+  const [mobileAboutExpanded, setMobileAboutExpanded] = useState(false);
+  const [mobileLocationsExpanded, setMobileLocationsExpanded] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -67,6 +70,9 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <div className="nav-desktop">
+            <Link href="/" className="nav-link">
+              Home
+            </Link>
             {/* Services Dropdown */}
             <div
               style={{ position: "relative" }}
@@ -159,6 +165,9 @@ export default function Navbar() {
             <Link href="/reviews" className="nav-link">
               Reviews
             </Link>
+            <Link href="/gallery" className="nav-link">
+              Gallery
+            </Link>
             <Link href="/contact-us" className="nav-link">
               Contact
             </Link>
@@ -184,29 +193,92 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="nav-mobile-overlay">
           <div className="nav-mobile-inner">
-            <p className="nav-mobile-section-label">Services</p>
-            {serviceLinks.map((s) => (
-              <Link
-                key={s.href}
-                href={s.href}
-                onClick={() => setMobileOpen(false)}
-                className="nav-mobile-link"
-              >
-                {s.label}
-              </Link>
-            ))}
+            <Link
+              href="/"
+              onClick={() => setMobileOpen(false)}
+              className="nav-mobile-link"
+              style={{ background: "transparent", fontWeight: 700, color: "var(--gray-900)" }}
+            >
+              Home
+            </Link>
             <div className="nav-mobile-divider" />
-            <p className="nav-mobile-section-label">About</p>
-            {aboutLinks.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={() => setMobileOpen(false)}
-                className="nav-mobile-link"
-              >
-                {l.label}
+            <button
+              type="button"
+              className="nav-mobile-expand-btn"
+              onClick={() => setMobileServicesExpanded((v) => !v)}
+              aria-expanded={mobileServicesExpanded}
+            >
+              <span>Services</span>
+              <span style={{ flexShrink: 0, display: "flex", alignItems: "center" }}>
+                <ChevronDown size={20} style={{ transform: mobileServicesExpanded ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.2s" }} />
+              </span>
+            </button>
+            <div className="nav-mobile-expand-content" style={{ maxHeight: mobileServicesExpanded ? "600px" : "0", overflow: "hidden", transition: "max-height 0.25s ease" }}>
+              {serviceLinks.map((s) => (
+                <Link
+                  key={s.href}
+                  href={s.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="nav-mobile-link"
+                >
+                  {s.label}
+                </Link>
+              ))}
+              <Link href="/services" onClick={() => setMobileOpen(false)} className="nav-mobile-link" style={{ fontWeight: 600, color: "var(--blue-600)" }}>
+                → View All Services
               </Link>
-            ))}
+            </div>
+            <div className="nav-mobile-divider" />
+            <button
+              type="button"
+              className="nav-mobile-expand-btn"
+              onClick={() => setMobileAboutExpanded((v) => !v)}
+              aria-expanded={mobileAboutExpanded}
+            >
+              <span>About</span>
+              <span style={{ flexShrink: 0, display: "flex", alignItems: "center" }}>
+                <ChevronDown size={20} style={{ transform: mobileAboutExpanded ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.2s" }} />
+              </span>
+            </button>
+            <div className="nav-mobile-expand-content" style={{ maxHeight: mobileAboutExpanded ? "200px" : "0", overflow: "hidden", transition: "max-height 0.25s ease" }}>
+              {aboutLinks.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="nav-mobile-link"
+                >
+                  {l.label}
+                </Link>
+              ))}
+            </div>
+            <div className="nav-mobile-divider" />
+            <button
+              type="button"
+              className="nav-mobile-expand-btn"
+              onClick={() => setMobileLocationsExpanded((v) => !v)}
+              aria-expanded={mobileLocationsExpanded}
+            >
+              <span>Locations</span>
+              <span style={{ flexShrink: 0, display: "flex", alignItems: "center" }}>
+                <ChevronDown size={20} style={{ transform: mobileLocationsExpanded ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.2s" }} />
+              </span>
+            </button>
+            <div className="nav-mobile-expand-content" style={{ maxHeight: mobileLocationsExpanded ? "400px" : "0", overflow: "hidden", transition: "max-height 0.25s ease" }}>
+              {locationLinks.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="nav-mobile-link"
+                >
+                  {l.label}
+                </Link>
+              ))}
+              <Link href="/service-areas" onClick={() => setMobileOpen(false)} className="nav-mobile-link" style={{ fontWeight: 600, color: "var(--blue-600)" }}>
+                → All Service Areas
+              </Link>
+            </div>
             <div className="nav-mobile-divider" />
             <Link
               href="/reviews"
@@ -217,12 +289,12 @@ export default function Navbar() {
               Reviews
             </Link>
             <Link
-              href="/service-areas"
+              href="/gallery"
               onClick={() => setMobileOpen(false)}
               className="nav-mobile-link"
               style={{ background: "transparent", fontWeight: 700, color: "var(--gray-900)" }}
             >
-              Service Areas
+              Gallery
             </Link>
             <Link
               href="/contact-us"

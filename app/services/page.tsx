@@ -38,19 +38,19 @@ const roadsideServices = [
 
 function ServiceGroup({ title, services }: { title: string; services: typeof truckServices }) {
   return (
-    <div style={{ marginBottom: "80px" }}>
+    <div className="services-group">
       <Reveal type="left">
         <h2 style={{ marginBottom: "12px", fontSize: "clamp(1.8rem, 4vw, 2.2rem)", fontWeight: 800, color: "#111827" }}>{title}</h2>
         <div style={{ width: "60px", height: "4px", background: "#2563EB", borderRadius: "2px", marginBottom: "40px" }} />
       </Reveal>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "24px" }}>
+      <div className="services-cards-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "24px" }}>
         {services.map((s, i) => (
           <Reveal key={s.href} type="up" delay={i * 60}>
-            <Link href={s.href} className="tilt-card" style={{ background: "#fff", border: "1px solid #E5E9EF", borderRadius: "16px", padding: "32px 24px", display: "flex", flexDirection: "column", height: "100%", textDecoration: "none", transition: "all 0.3s ease" }}>
-              <div style={{ width: "54px", height: "54px", background: "#EFF6FF", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "center", color: "#2563EB", marginBottom: "20px" }}>
+            <Link href={s.href} className="tilt-card services-card" style={{ background: "#fff", border: "1px solid #E5E9EF", borderRadius: "16px", padding: "32px 24px", display: "flex", flexDirection: "column", height: "100%", textDecoration: "none", transition: "all 0.3s ease" }}>
+              <div className="services-card-icon-wrap" style={{ width: "54px", height: "54px", background: "#EFF6FF", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "center", color: "#2563EB", marginBottom: "20px" }}>
                 {s.icon}
               </div>
-              <h4 style={{ marginBottom: "12px", fontSize: "1.1rem", color: "#111827", fontWeight: 700 }}>{s.title}</h4>
+              <h4 className="services-card-title" style={{ marginBottom: "12px", fontSize: "1.1rem", color: "#111827", fontWeight: 700 }}>{s.title}</h4>
               <p style={{ fontSize: "0.95rem", color: "#64748B", lineHeight: 1.6, flexGrow: 1, margin: "0 0 20px" }}>{s.desc}</p>
               <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.9rem", color: "#2563EB", fontWeight: 700, marginTop: "auto" }}>
                 Learn more <ArrowRight size={16} />
@@ -67,7 +67,7 @@ export default function ServicesPage() {
   return (
     <>
       {/* ── Animated Hero ── */}
-      <section style={{
+      <section className="services-page-hero" style={{
         position: "relative", width: "100%", minHeight: "55vh", display: "flex", alignItems: "center", overflow: "hidden"
       }}>
         <div style={{
@@ -96,7 +96,7 @@ export default function ServicesPage() {
           <div style={{ position: "absolute", top: "20%", left: "70%", width: "400px", height: "400px", borderRadius: "50%", background: "rgba(37,99,235,0.08)", filter: "blur(80px)", animation: "floatSlow 10s ease-in-out infinite" }} />
         </div>
         
-        <div className="container" style={{ position: "relative", zIndex: 2, padding: "clamp(80px, 12vh, 120px) 24px clamp(60px, 8vh, 80px)" }}>
+        <div className="container services-hero-inner" style={{ position: "relative", zIndex: 2, padding: "clamp(80px, 12vh, 120px) 24px clamp(60px, 8vh, 80px)" }}>
           <div className="page-hero__breadcrumb anim-fade-up" style={{ marginBottom: "20px" }}>
             <Link href="/" style={{ color: "#93C5FD", textDecoration: "none", fontWeight: 600 }}>Home</Link> <span style={{ color: "#475569" }}>/</span>
             <span style={{ color: "#CBD5E1", fontWeight: 600 }}>Services</span>
@@ -121,7 +121,7 @@ export default function ServicesPage() {
       </section>
 
       {/* ── Services Grid ── */}
-      <section className="section" style={{ background: "#F8F9FB", padding: "80px 0" }}>
+      <section className="section services-grid-section" style={{ background: "#F8F9FB", padding: "80px 0" }}>
         <div className="container">
           <ServiceGroup title="Truck Services" services={truckServices} />
           <ServiceGroup title="Trailer Services" services={trailerServices} />
@@ -130,7 +130,7 @@ export default function ServicesPage() {
       </section>
 
       {/* ── Bottom CTA ── */}
-      <section style={{ background: "#1E293B", padding: "80px 0", color: "#fff", position: "relative", overflow: "hidden" }}>
+      <section className="services-cta-section" style={{ background: "#1E293B", padding: "80px 0", color: "#fff", position: "relative", overflow: "hidden" }}>
         {/* Animated Background Orb */}
         <div style={{ position: "absolute", top: "-50%", left: "50%", transform: "translateX(-50%)", width: "600px", height: "600px", background: "rgba(37,99,235,0.15)", filter: "blur(100px)", borderRadius: "50%", pointerEvents: "none", animation: "floatSlow 10s ease-in-out infinite" }} />
         

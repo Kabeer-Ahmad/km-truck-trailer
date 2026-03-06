@@ -21,24 +21,19 @@ const companyLinks = [
   { label: "Service Areas", href: "/service-areas" },
   { label: "Contact Us", href: "/contact-us" },
   { label: "Reviews", href: "/reviews" },
-];
-
-const supportLinks = [
-  { label: "Contact Us", href: "/contact-us" },
-  { label: "Privacy Policy", href: "/privacy-policy" },
-  { label: "Terms & Conditions", href: "/terms-and-conditions" },
+  { label: "Gallery", href: "/gallery" },
 ];
 
 export default function Footer() {
   const mapEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3296.434540565181!2d-81.00946068763731!3d34.28846887356797!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88561b40bb2a768b%3A0xdce0b0259ffde780!2sK%26M%20Truck%20Trailer%20Repair!5e0!3m2!1sen!2s!4v1772813646615!5m2!1sen!2s";
 
   return (
-    <footer style={{ background: "#F1F4F8", borderTop: "1px solid #E5E9EF" }}>
+    <footer className="site-footer" style={{ background: "#F1F4F8", borderTop: "1px solid #E5E9EF" }}>
       <div className="container" style={{ paddingTop: "48px", paddingBottom: "48px" }}>
         <div className="footer-grid" style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 1fr 2.5fr", gap: "40px" }}>
 
           {/* Brand + Get in Touch */}
-          <div>
+          <div className="footer-brand-block">
             <Link href="/" style={{ display: "inline-flex", alignItems: "center", marginBottom: "16px", textDecoration: "none" }}>
               <Image
                 src="/new_logo.webp"
@@ -85,24 +80,16 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Company + Support */}
+          {/* Company */}
           <div>
             <h4 style={{ fontSize: "0.875rem", fontWeight: 700, color: "#111827", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "16px" }}>Company</h4>
-            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "10px", marginBottom: "28px" }}>
+            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "10px" }}>
               {companyLinks.map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} style={{ fontSize: "0.875rem", color: "#6B7280", textDecoration: "none", transition: "color 0.15s" }}
                     onMouseEnter={(e) => { e.currentTarget.style.color = "#2563EB"; }}
                     onMouseLeave={(e) => { e.currentTarget.style.color = "#6B7280"; }}
                   >{l.label}</Link>
-                </li>
-              ))}
-            </ul>
-            <h4 style={{ fontSize: "0.875rem", fontWeight: 700, color: "#111827", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "16px" }}>Support</h4>
-            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "10px" }}>
-              {supportLinks.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} style={{ fontSize: "0.875rem", color: "#6B7280", textDecoration: "none" }}>{l.label}</Link>
                 </li>
               ))}
             </ul>
@@ -128,13 +115,12 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div style={{ borderTop: "1px solid #E5E9EF", padding: "20px 0" }}>
-        <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px" }}>
+      <div className="footer-bottom-bar" style={{ borderTop: "1px solid #E5E9EF", padding: "20px 0" }}>
+        <div className="container footer-bottom" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px" }}>
           <p style={{ fontSize: "0.8rem", color: "#9CA3AF", margin: 0 }}>© 2025 KM Truck & Trailer. All rights reserved.</p>
-          <div style={{ display: "flex", gap: "20px" }}>
-            <Link href="/privacy-policy" style={{ fontSize: "0.8rem", color: "#9CA3AF", textDecoration: "none" }}>Privacy</Link>
-            <Link href="/terms-and-conditions" style={{ fontSize: "0.8rem", color: "#9CA3AF", textDecoration: "none" }}>Terms</Link>
-            <Link href="/sitemap" style={{ fontSize: "0.8rem", color: "#9CA3AF", textDecoration: "none" }}>Sitemap</Link>
+          <div className="footer-bottom-links" style={{ display: "flex", gap: "20px" }}>
+            <Link href="/privacy-policy" style={{ fontSize: "0.8rem", color: "#9CA3AF", textDecoration: "none" }}>Privacy Policy</Link>
+            <Link href="/terms-and-conditions" style={{ fontSize: "0.8rem", color: "#9CA3AF", textDecoration: "none" }}>Terms &amp; Conditions</Link>
           </div>
         </div>
       </div>
@@ -148,21 +134,6 @@ export default function Footer() {
           overflow: hidden;
           border: 1px solid #E5E9EF;
           background: #fff;
-        }
-        @media (max-width: 600px) {
-          .footer-map-wrap { height: 280px; }
-        }
-        @media (max-width: 992px) {
-          .footer-grid {
-            grid-template-columns: 1fr 1fr !important;
-            gap: 32px !important;
-          }
-        }
-        @media (max-width: 600px) {
-          .footer-grid {
-            grid-template-columns: 1fr !important;
-            gap: 40px !important;
-          }
         }
       `}</style>
     </footer>

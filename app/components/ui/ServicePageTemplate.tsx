@@ -272,7 +272,7 @@ export default function ServicePageTemplate({
             <div className="section-header section-header--center" style={{ marginBottom: "60px" }}>
               <span className="eyebrow">What Drivers Say</span>
               <h2 style={{ fontSize: "clamp(2rem, 4vw, 2.5rem)", fontWeight: 800 }}>Trusted by Truck Drivers Across SC</h2>
-              <p style={{ color: "#64748B", fontSize: "1.1rem" }}>Based on 69 verified Google reviews</p>
+              <p style={{ color: "#64748B", fontSize: "1.1rem" }}>Based on 100+ verified Google reviews</p>
             </div>
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "24px" }}>

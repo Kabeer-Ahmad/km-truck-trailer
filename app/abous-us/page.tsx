@@ -192,7 +192,7 @@ export default function AboutPage() {
 
           {/* Floating stat chips */}
           <div className="anim-fadeIn" style={{ animationDelay: "0.8s", display: "flex", gap: "16px", marginTop: "48px", flexWrap: "wrap" }}>
-            {[["10+", "Years in Business"], ["69+", "5-Star Reviews"], ["24/7", "Emergency Service"]].map(([n, l]) => (
+            {[["10+", "Years in Business"], ["100+", "5-Star Reviews"], ["24/7", "Emergency Service"]].map(([n, l]) => (
               <div key={l} style={{ background: "rgba(255,255,255,0.06)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "12px", padding: "10px 18px" }}>
                 <span style={{ color: "#60A5FA", fontWeight: 800, fontSize: "1.1rem" }}>{n}</span>
                 <span style={{ color: "#94A3B8", fontSize: "0.75rem", marginLeft: "6px" }}>{l}</span>
@@ -393,7 +393,7 @@ export default function AboutPage() {
               <h2>EXCELLENT</h2>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "6px", marginTop: "8px", marginBottom: "6px" }}>
                 {[...Array(5)].map((_, i) => <Star key={i} size={20} color="#F59E0B" fill="#F59E0B" />)}
-                <span style={{ fontWeight: 700, fontSize: "1rem", color: "#374151", marginLeft: "6px" }}>Based on 69 reviews</span>
+                <span style={{ fontWeight: 700, fontSize: "1rem", color: "#374151", marginLeft: "6px" }}>Based on 100+ reviews</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "6px", marginTop: "4px" }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -436,7 +436,7 @@ export default function AboutPage() {
             <div style={{ textAlign: "center", marginTop: "36px" }}>
               <a href="https://www.google.com/search?q=KM+Truck+Trailer+Repair+Columbia+SC+reviews" target="_blank" rel="noopener noreferrer"
                 style={{ display: "inline-flex", alignItems: "center", gap: "8px", border: "1.5px solid #E5E9EF", color: "#374151", padding: "11px 22px", borderRadius: "10px", fontWeight: 600, fontSize: "0.9rem", textDecoration: "none" }}>
-                <ThumbsUp size={16} color="#2563EB" /> Read All 69+ Reviews on Google
+                <ThumbsUp size={16} color="#2563EB" /> Read All 100+ Reviews on Google
               </a>
             </div>
           </Reveal>
