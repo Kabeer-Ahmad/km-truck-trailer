@@ -3,15 +3,24 @@ import Script from "next/script";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { SITE_URL } from "@/lib/site-metadata";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default:
       "Truck & Trailer Repair in South Carolina | 24/7 Emergency Service | KM Truck & Trailer",
     template: "%s | KM Truck & Trailer",
   },
   description:
-    "Stuck on I-77? K&M offers reliable truck repair and tire service in South Carolina. 24/7 emergency truck repair, DPF cleaning & more. Call (803) 393-4907!",
+    "Need reliable truck and trailer repair in South Carolina? We offer 24/7 emergency roadside assistance, fast service, and expert technicians near you. Call now.",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "/",
+  },
   keywords: [
     "truck repair South Carolina",
     "trailer repair Columbia SC",
@@ -25,7 +34,7 @@ export const metadata: Metadata = {
     description:
       "24/7 emergency truck repair, DPF cleaning, brakes, tires & more in South Carolina. Call (803) 393-4907.",
     type: "website",
-    url: "https://kmtrucktrailer.com",
+    url: SITE_URL,
     siteName: "KM Truck & Trailer",
   },
   twitter: {
@@ -57,7 +66,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "AutoRepair",
               name: "KM Truck & Trailer Repair",
-              url: "https://kmtrucktrailer.com",
+              url: SITE_URL,
               telephone: "+18033934907",
               email: "repair@kmtrucktrailer.com",
               address: {

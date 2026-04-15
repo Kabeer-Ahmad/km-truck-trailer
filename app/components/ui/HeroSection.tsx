@@ -13,7 +13,12 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 const HERO_SCROLL_LENGTH_DESKTOP = 700;
 const HERO_SCROLL_LENGTH_MOBILE = 420;
 
-export default function HeroSection() {
+type HeroSectionProps = {
+  /** Main subhead under the H1 (matches site meta description when provided). */
+  subcopy?: string;
+};
+
+export default function HeroSection({ subcopy }: HeroSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const truckRef = useRef<HTMLDivElement>(null);
@@ -220,7 +225,8 @@ export default function HeroSection() {
             lineHeight: 1.75, marginBottom: "clamp(24px, 4vw, 36px)", maxWidth: "560px", marginLeft: "auto", marginRight: "auto",
             textShadow: "0 1px 8px rgba(0,0,0,0.3)"
           }}>
-            Professional roadside assistance and comprehensive fleet maintenance across Columbia, South Carolina. We minimize downtime so you can maximize delivery.
+            {subcopy ??
+              "Professional roadside assistance and comprehensive fleet maintenance across Columbia, South Carolina. We minimize downtime so you can maximize delivery."}
           </p>
 
           {/* CTAs - 3D tilt on hover */}

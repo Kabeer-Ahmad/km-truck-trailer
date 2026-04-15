@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Wrench, Settings, Truck, Zap, Battery, Wind, Thermometer, AlertTriangle, Shield, Map, CheckCircle, Phone, Star, CreditCard, HeartHandshake, CarFront } from "lucide-react";
 import type { Metadata } from "next";
+import { withPageMeta } from "@/lib/site-metadata";
 import HeroSection from "@/app/components/ui/HeroSection";
 import BookingForm from "@/app/components/ui/BookingForm";
 import Reveal from "@/app/components/ui/Reveal";
@@ -11,10 +12,11 @@ import StatsBar from "@/app/components/ui/StatsBar";
 import TestimonialsSlider from "@/app/components/ui/TestimonialsSlider";
 import { testimonials } from "@/app/reviews/reviews-data";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMeta("/", {
   title: "Truck & Trailer Repair in South Carolina | 24/7 Emergency Service",
-  description: "Stuck on I-77? K&M offers reliable truck repair and tire service in South Carolina. 24/7 emergency truck repair, DPF cleaning & more. Call (803) 393-4907!",
-};
+  description:
+    "Need reliable truck and trailer repair in South Carolina? We offer 24/7 emergency roadside assistance, fast service, and expert technicians near you. Call now.",
+});
 
 const services = [
   { icon: <Wrench size={24} />, title: "Engine Diagnostics & Repair", desc: "Advanced diagnostics for Cummins, Detroit & Paccar engines. Fast, accurate fault resolution.", href: "/vehicle-engine-diagnostic", image: "/mechanic-diagnostic-1.jpg" },
@@ -49,7 +51,9 @@ export default function HomePage() {
   return (
     <>
       {/* ── Animated Hero (client component) ── */}
-      <HeroSection />
+      <HeroSection
+        subcopy="Need reliable truck and trailer repair in South Carolina? We offer 24/7 emergency roadside assistance, fast service, and expert technicians near you. Call now."
+      />
 
       {/* ── Booking Online ── */}
       <BookingForm />

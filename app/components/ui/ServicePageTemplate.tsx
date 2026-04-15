@@ -11,12 +11,19 @@ interface ServiceLink { label: string; href: string; }
 
 interface ExtraSection { title: string; items: string[]; }
 
+export interface ServiceArticleSection {
+  heading: string;
+  paragraphs: string[];
+}
+
 interface ServicePageTemplateProps {
   title: string;
   heroSubtitle: string;
   bodyIntro: string;
   features: string[];
   bodyContent?: string;
+  /** Long-form SEO sections (rendered after intro, before images). */
+  articleSections?: ServiceArticleSection[];
   extraSections?: ExtraSection[];
   bodyAfterContent?: React.ReactNode;
   faqItems: FAQItem[];
@@ -57,7 +64,7 @@ function FAQAccordion({ items }: { items: FAQItem[] }) {
 }
 
 export default function ServicePageTemplate({
-  title, heroSubtitle, bodyIntro, features, bodyContent, extraSections, bodyAfterContent, faqItems, relatedServices, icon, images, imageLayout = "scattered"
+  title, heroSubtitle, bodyIntro, features, bodyContent, articleSections, extraSections, bodyAfterContent, faqItems, relatedServices, icon, images, imageLayout = "scattered"
 }: ServicePageTemplateProps) {
   return (
     <>
@@ -100,6 +107,21 @@ export default function ServicePageTemplate({
                 </div>
                 <p style={{ fontSize: "1.15rem", color: "#111827", fontWeight: 500, lineHeight: 1.8, marginBottom: "28px" }}>{bodyIntro}</p>
               </Reveal>
+
+              {articleSections && articleSections.length > 0 && (
+                <Reveal type="up" delay={60}>
+                  <div style={{ marginBottom: "36px" }}>
+                    {articleSections.map((sec, idx) => (
+                      <div key={idx} style={{ marginBottom: "28px" }}>
+                        <h3 style={{ fontSize: "1.35rem", fontWeight: 800, color: "#111827", marginBottom: "14px", lineHeight: 1.3 }}>{sec.heading}</h3>
+                        {sec.paragraphs.map((p, i) => (
+                          <p key={i} style={{ color: "#475569", fontSize: "1.05rem", lineHeight: 1.85, marginBottom: "16px", marginTop: 0 }}>{p}</p>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </Reveal>
+              )}
 
               {/* Stacked Layout Header Image */}
               {images && imageLayout === "stacked" && images.length > 0 && (

@@ -3,11 +3,12 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { Phone, Wrench, Settings, Truck, Zap, Battery, Wind, Thermometer, AlertTriangle, Shield, CheckCircle, ArrowRight, CarFront } from "lucide-react";
 import Reveal from "@/app/components/ui/Reveal";
+import { withPageMeta } from "@/lib/site-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageMeta("/services", {
   title: "Truck & Trailer Repair Services | KM Truck & Trailer | SC",
   description: "Complete truck and trailer repair services in South Carolina. Engine diagnostics, DPF cleaning, brakes, tires, electrical, and 24/7 emergency roadside.",
-};
+});
 
 const truckServices = [
   { icon: <Wrench size={24} />, title: "Engine Diagnostics & Repair", desc: "Advanced diagnostics for Cummins, Detroit Diesel & Paccar engines. Fault code reading, ECM repair, and full overhauls.", href: "/vehicle-engine-diagnostic" },

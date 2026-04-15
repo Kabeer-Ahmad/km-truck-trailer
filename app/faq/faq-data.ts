@@ -297,7 +297,7 @@ export const allFaqCategories: FAQCategory[] = [
       { question: "Do you tow tractor-trailers in Columbia?", answer: "Yes—dry vans, reefers, flatbeds, winch-outs, and distribution-center pickups. We protect fifth wheels and trailer clearance." },
       { question: "When should I ask for flatbed towing?", answer: "Low clearance, sensitive cargo, or any time the load must stay level—flatbed avoids hook stress on specialty Columbia moves." },
       { question: "Is light-duty towing available for fleet vans?", answer: "Yes. Fair pricing for local tows to Columbia repair shops, impound coordination, and clearing busy roads like Garners Ferry or Two Notch." },
-      { question: "How do I choose the right towing service?", answer: "Start at kmtrucktrailer.com/towing—each service has its own page (semi, flatbed, light duty, etc.) with FAQs tailored to that job." },
+      { question: "How do I choose the right towing service?", answer: "Start at https://www.kmtrucktrailers.com/towing—each service has its own page (semi, flatbed, light duty, etc.) with FAQs tailored to that job." },
     ],
   },
   {
